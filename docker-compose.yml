@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  app:
+    image: bbgrabbag/ebt-cli:ebt-123-0.0.1.dev
+    volumes:
+      - .:/workspace
+    working_dir: /workspace

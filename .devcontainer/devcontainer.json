@@ -1,0 +1,20 @@
+{
+    "name": "EBT Docker Build Workflow",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "app",
+    "platform": "linux/amd64",
+    "workspaceFolder": "/workspace",
+    "features": {},
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Anthropic.claude-code",
+                "redhat.vscode-yaml"
+            ]
+        }
+    },
+    "remoteUser": "root",
+    "remoteEnv": {
+        "SHELL": "/bin/bash"
+    }
+}
