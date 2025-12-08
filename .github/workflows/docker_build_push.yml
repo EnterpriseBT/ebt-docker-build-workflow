@@ -36,18 +36,18 @@ jobs:
 
       - name: Validate branch name
         id: validate
-        uses: ./actions/validate-branch
+        uses: ./.github/actions/validate-branch
 
       - name: Calculate version
         id: version
-        uses: ./actions/calculate-version
+        uses: ./.github/actions/calculate-version
         with:
           branch_type: ${{ steps.validate.outputs.branch_type }}
           ticket: ${{ steps.validate.outputs.ticket }}
 
       - name: Build and push Docker image
         id: docker_build
-        uses: ./actions/docker-build-push
+        uses: ./.github/actions/docker-build-push
         with:
           registry: ${{ inputs.registry }}
           image_name: ${{ inputs.image_name }}
@@ -59,12 +59,12 @@ jobs:
 
       - name: Create git tag for release branches
         if: steps.validate.outputs.branch_type == 'release'
-        uses: ./actions/create-git-tag
+        uses: ./.github/actions/create-git-tag
         with:
           git_tag: ${{ steps.version.outputs.git_tag }}
 
       - name: Output summary
-        uses: ./actions/output-summary
+        uses: ./.github/actions/output-summary
         with:
           branch_name: ${{ steps.validate.outputs.branch_name }}
           branch_type: ${{ steps.validate.outputs.branch_type }}
