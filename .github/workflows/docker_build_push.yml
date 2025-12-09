@@ -65,6 +65,18 @@ jobs:
         with:
           git_tag: ${{ steps.version.outputs.git_tag }}
 
+      - name: Create GitHub release
+        id: github_release
+        if: success() && steps.validate.outputs.branch_type == 'release'
+        uses: EnterpriseBT/ebt-docker-build-workflow/.github/actions/create-github-release@main
+        with:
+          git_tag: ${{ steps.version.outputs.git_tag }}
+          registry: ${{ inputs.registry }}
+          image_name: ${{ inputs.image_name }}
+          docker_tag: ${{ steps.version.outputs.docker_tag }}
+          additional_tags: ${{ steps.version.outputs.additional_tags }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Output summary
         if: success()
         uses: EnterpriseBT/ebt-docker-build-workflow/.github/actions/output-summary@main
@@ -76,3 +88,4 @@ jobs:
           registry: ${{ inputs.registry }}
           image_name: ${{ inputs.image_name }}
           additional_tags: ${{ steps.version.outputs.additional_tags }}
+          release_url: ${{ steps.github_release.outputs.release_url }}
