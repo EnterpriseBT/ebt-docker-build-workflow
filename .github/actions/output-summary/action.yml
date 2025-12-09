@@ -24,6 +24,10 @@ inputs:
     description: 'Additional tags applied'
     required: false
     default: ''
+  release_url:
+    description: 'GitHub release URL (for release branches)'
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
@@ -37,10 +41,14 @@ runs:
         echo "- **Branch Type:** ${{ inputs.branch_type }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Version:** ${{ inputs.version }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Docker Tag:** ${{ inputs.docker_tag }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Image:** ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.docker_tag }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Image:** [\`${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.docker_tag }}\`](https://hub.docker.com/r/${{ inputs.registry }}/${{ inputs.image_name }}/tags)" >> $GITHUB_STEP_SUMMARY
 
         if [ -n "${{ inputs.additional_tags }}" ]; then
           echo "- **Additional Tags:** ${{ inputs.additional_tags }}" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        if [ -n "${{ inputs.release_url }}" ]; then
+          echo "- **GitHub Release:** ${{ inputs.release_url }}" >> $GITHUB_STEP_SUMMARY
         fi
 
         echo "" >> $GITHUB_STEP_SUMMARY
