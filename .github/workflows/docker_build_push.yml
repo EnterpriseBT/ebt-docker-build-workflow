@@ -40,6 +40,7 @@ jobs:
 
       - name: Calculate version
         id: version
+        if: success()
         uses: EnterpriseBT/ebt-docker-build-workflow/.github/actions/calculate-version@main
         with:
           branch_type: ${{ steps.validate.outputs.branch_type }}
@@ -47,6 +48,7 @@ jobs:
 
       - name: Build and push Docker image
         id: docker_build
+        if: success()
         uses: EnterpriseBT/ebt-docker-build-workflow/.github/actions/docker-build-push@main
         with:
           registry: ${{ inputs.registry }}
@@ -58,12 +60,13 @@ jobs:
           context: ${{ inputs.context }}
 
       - name: Create git tag for release branches
-        if: steps.validate.outputs.branch_type == 'release'
+        if: success() && steps.validate.outputs.branch_type == 'release'
         uses: EnterpriseBT/ebt-docker-build-workflow/.github/actions/create-git-tag@main
         with:
           git_tag: ${{ steps.version.outputs.git_tag }}
 
       - name: Output summary
+        if: success()
         uses: EnterpriseBT/ebt-docker-build-workflow/.github/actions/output-summary@main
         with:
           branch_name: ${{ steps.validate.outputs.branch_name }}
