@@ -2,7 +2,6 @@
     "name": "EBT Docker Build Workflow",
     "dockerComposeFile": "../docker-compose.yml",
     "service": "app",
-    "platform": "linux/amd64",
     "workspaceFolder": "/workspace",
     "features": {},
     "customizations": {
