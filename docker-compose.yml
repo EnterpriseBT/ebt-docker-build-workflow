@@ -1,8 +1,7 @@
-version: '3.8'
 services:
   app:
     container_name: ebt-docker-workflow
-    image: bbgrabbag/ebt-cli:2.0.0
+    image: bbgrabbag/ebt-cli:5.0.0
     volumes:
       - .:/workspace
     working_dir: /workspace
