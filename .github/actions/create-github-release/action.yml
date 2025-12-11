@@ -52,7 +52,6 @@ runs:
         docker pull ${REGISTRY}/${IMAGE_NAME}:${DOCKER_TAG}
         \`\`\`
         "
-
                 if [ -n "$ADDITIONAL_TAGS" ]; then
                   RELEASE_NOTES="${RELEASE_NOTES}
 
